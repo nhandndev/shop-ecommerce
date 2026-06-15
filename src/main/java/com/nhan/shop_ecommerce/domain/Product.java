@@ -1,0 +1,47 @@
+package com.nhan.shop_ecommerce.domain;
+
+import jakarta.persistence.*;
+import lombok.experimental.FieldDefaults;
+
+import java.util.List;
+import java.util.Set;
+
+@Entity
+@Table(name = "products")
+@FieldDefaults
+public class Product {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Long id;
+
+    @Column(name = "title",nullable = false)
+    String title;
+
+    @Column(name = "description", columnDefinition = "TEXT")
+    String description;
+
+    @Column(name = "main_image")
+    String mainImage;
+
+    @ManyToOne
+    @JoinColumn(name="category_id")
+    Category category;
+
+    @ManyToOne
+    @JoinColumn(name="seller_id")
+    User seller;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL , orphanRemoval = true)
+    Set<ProductVariant> productVariants ;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL , orphanRemoval = true)
+    List<Review> reviews;
+
+
+
+
+
+
+
+
+}
