@@ -1,6 +1,7 @@
 package com.nhan.shop_ecommerce.domain;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 
 import java.util.List;
@@ -8,7 +9,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "products")
-@FieldDefaults
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
