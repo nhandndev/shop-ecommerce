@@ -10,14 +10,12 @@ import jakarta.validation.constraints.Size;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;
-import org.hibernate.validator.constraints.UniqueElements;
 
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Getter
 public class RegisterRequest {
     @Email(message = "EMAIL_INVALID")
     @NotBlank(message = "EMAIL_REQUIRED")
-    @UniqueElements
     private String email;
 
     @Size(min = 6, message = "PASSWORD_INVALID")
@@ -27,5 +25,5 @@ public class RegisterRequest {
     @NotBlank(message = "FULLNAME_REQUIRED")
     private String fullName;
 
-    private String phone;
+    private String phoneNumber;
 }

@@ -16,6 +16,7 @@ public enum ErrorCode {
     INVALID_INPUT(7777, "Dữ liệu đầu vào không hợp lệ", HttpStatus.BAD_REQUEST),
     UNAUTHENTICATED(1001, "Xác thực không thành công hoặc phiên đăng nhập hết hạn", HttpStatus.UNAUTHORIZED),
     UNAUTHORIZED(1002, "Bạn không có quyền truy cập chức năng này", HttpStatus.FORBIDDEN),
+    ROLE_NOT_FOUND(1003,"Không tìm thấy role trong hệ thống",HttpStatus.BAD_REQUEST),
 
     // Nghiệp vụ phân hệ Người dùng (Users & OTP)
     USER_EXISTED(2001, "Email này đã được sử dụng trên hệ thống", HttpStatus.BAD_REQUEST),
