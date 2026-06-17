@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { User, Lock, Mail, Loader2, AlertCircle } from 'lucide-react';
+import { User, Lock, Mail, Loader2, AlertCircle, Phone } from 'lucide-react';
 import authApi from '../api/authApi';
 
 const Register = () => {
-  const [formData, setFormData] = useState({ username: '', email: '', password: '', confirmPassword: '' });
+  const [formData, setFormData] = useState({ fullName: '', email: '', phoneNumber: '', password: '', confirmPassword: '' });
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();
@@ -26,10 +26,10 @@ const Register = () => {
     setError('');
 
     try {
-      // Adjust request payload to match your Spring Boot Entity
       const payload = {
-        username: formData.username,
+        fullName: formData.fullName,
         email: formData.email,
+        phoneNumber: formData.phoneNumber,
         password: formData.password
       };
       
@@ -78,21 +78,21 @@ const Register = () => {
             )}
 
             <div>
-              <label htmlFor="username" className="block text-sm font-medium text-gray-700">
-                Tên đăng nhập
+              <label htmlFor="fullName" className="block text-sm font-medium text-gray-700">
+                Họ và Tên
               </label>
               <div className="mt-1 relative rounded-md shadow-sm">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <User className="h-5 w-5 text-gray-400" />
                 </div>
                 <input
-                  id="username"
-                  name="username"
+                  id="fullName"
+                  name="fullName"
                   type="text"
                   required
                   className="block w-full pl-10 sm:text-sm border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 p-2 border"
-                  placeholder="Nhập tên đăng nhập"
-                  value={formData.username}
+                  placeholder="Nhập họ và tên"
+                  value={formData.fullName}
                   onChange={handleChange}
                 />
               </div>
@@ -120,6 +120,26 @@ const Register = () => {
             </div>
 
             <div>
+              <label htmlFor="phoneNumber" className="block text-sm font-medium text-gray-700">
+                Số điện thoại
+              </label>
+              <div className="mt-1 relative rounded-md shadow-sm">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <Phone className="h-5 w-5 text-gray-400" />
+                </div>
+                <input
+                  id="phoneNumber"
+                  name="phoneNumber"
+                  type="tel"
+                  className="block w-full pl-10 sm:text-sm border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 p-2 border"
+                  placeholder="Nhập số điện thoại"
+                  value={formData.phoneNumber}
+                  onChange={handleChange}
+                />
+              </div>
+            </div>
+
+            <div>
               <label htmlFor="password" className="block text-sm font-medium text-gray-700">
                 Mật khẩu
               </label>
@@ -132,6 +152,7 @@ const Register = () => {
                   name="password"
                   type="password"
                   required
+                  minLength={6}
                   className="block w-full pl-10 sm:text-sm border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 p-2 border"
                   placeholder="Nhập mật khẩu"
                   value={formData.password}
@@ -153,6 +174,7 @@ const Register = () => {
                   name="confirmPassword"
                   type="password"
                   required
+                  minLength={6}
                   className="block w-full pl-10 sm:text-sm border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 p-2 border"
                   placeholder="Xác nhận mật khẩu"
                   value={formData.confirmPassword}

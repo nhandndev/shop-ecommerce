@@ -5,7 +5,7 @@ import { AuthContext } from '../context/AuthContext';
 import authApi from '../api/authApi';
 
 const Login = () => {
-  const [formData, setFormData] = useState({ username: '', password: '' });
+  const [formData, setFormData] = useState({ email: '', password: '' });
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const { loginUser } = useContext(AuthContext);
@@ -19,8 +19,8 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!formData.username || !formData.password) {
-      setError('Vui lòng nhập đầy đủ tên đăng nhập và mật khẩu.');
+    if (!formData.email || !formData.password) {
+      setError('Vui lòng nhập đầy đủ email và mật khẩu.');
       return;
     }
 
@@ -28,12 +28,14 @@ const Login = () => {
     setError('');
 
     try {
-      // Giả định backend trả về { result: { user: {...}, token: "..." }, message: "..." }
-      // Hoặc cấu trúc tương tự. Hãy điều chỉnh theo response thực tế của Spring Boot
       const response = await authApi.login(formData);
       
-      const userData = response.result?.user || response.data?.user || response; // Adjust based on your API
-      const token = response.result?.token || response.data?.token || response.token; // Adjust based on your API
+      // Backend returns ApiResponse<AuthenticationResponse>
+      // Example: { code: 1000, message: "...", data: { token: "...", authenticated: true } }
+      const token = response.data?.token || response.token; 
+      
+      // Since backend doesn't return user details on login, we'll store basic info
+      const userData = { email: formData.email }; 
 
       if (token) {
         loginUser(userData, token);
@@ -81,21 +83,21 @@ const Login = () => {
             )}
 
             <div>
-              <label htmlFor="username" className="block text-sm font-medium text-gray-700">
-                Tên đăng nhập
+              <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+                Email
               </label>
               <div className="mt-1 relative rounded-md shadow-sm">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <Mail className="h-5 w-5 text-gray-400" />
                 </div>
                 <input
-                  id="username"
-                  name="username"
-                  type="text"
+                  id="email"
+                  name="email"
+                  type="email"
                   required
                   className="block w-full pl-10 sm:text-sm border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 p-2 border"
-                  placeholder="Nhập username"
-                  value={formData.username}
+                  placeholder="Nhập email"
+                  value={formData.email}
                   onChange={handleChange}
                 />
               </div>

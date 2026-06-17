@@ -33,7 +33,7 @@ public class AuthController {
     public ApiResponse<AuthenticationResponse> login(@RequestBody LoginRequest loginRequest){
         return  ApiResponse.<AuthenticationResponse>builder()
                 .code(1000)
-                .message("register completed")
+                .message("login completed")
                 .data(authService.login(loginRequest))
                 .build();
     }
