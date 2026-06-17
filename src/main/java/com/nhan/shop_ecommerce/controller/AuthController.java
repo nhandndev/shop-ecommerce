@@ -1,7 +1,9 @@
 package com.nhan.shop_ecommerce.controller;
 
+import com.nhan.shop_ecommerce.dto.request.LoginRequest;
 import com.nhan.shop_ecommerce.dto.request.RegisterRequest;
 import com.nhan.shop_ecommerce.dto.response.ApiResponse;
+import com.nhan.shop_ecommerce.dto.response.AuthenticationResponse;
 import com.nhan.shop_ecommerce.dto.response.UserResponse;
 import com.nhan.shop_ecommerce.service.AuthService;
 import lombok.AccessLevel;
@@ -26,4 +28,13 @@ public class AuthController {
                 .data(authService.register(registerRequest))
                 .build();
     }
+    @PostMapping("/login")
+    public ApiResponse<AuthenticationResponse> login(@RequestBody LoginRequest loginRequest){
+        return  ApiResponse.<AuthenticationResponse>builder()
+                .code(1000)
+                .message("register completed")
+                .data(authService.login(loginRequest))
+                .build();
+    }
+
 }

@@ -20,3 +20,5 @@ spring:
         format_sql: true # Định dạng câu lệnh SQL xuống dòng cho đẹp
         # Sử dụng Dialect chính xác cho các phiên bản PostgreSQL hiện đại
         dialect: org.hibernate.dialect.PostgreSQLDialect
+jwt:
+  signKey : iiIUNA+uyy8hzqFxFt2Nx9Wu8xqGq09+Eyq9nSzr4vQ=
