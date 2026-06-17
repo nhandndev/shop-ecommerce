@@ -23,12 +23,11 @@ public interface UserMapper {
   @Mapping(target = "id", ignore = true)
   User toUser(RegisterRequest registerRequest);
 
-  // Phương thức helper để chuyển đổi Set<Role> sang Set<String>
   @Named("roleToStringSet")
   default Set<String> roleToStringSet(Set<Role> roles) {
     if (roles == null) return null;
     return roles.stream()
-            .map(Role::getName) // Giả sử class Role có phương thức getName()
+            .map(Role::getName)
             .collect(Collectors.toSet());
   }
 }
