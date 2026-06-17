@@ -3,11 +3,13 @@ package com.nhan.shop_ecommerce.Utils;
 import com.nhan.shop_ecommerce.domain.User;
 import com.nhan.shop_ecommerce.enums.ErrorCode;
 import com.nhan.shop_ecommerce.exception.AppException;
+import com.nhan.shop_ecommerce.repository.InvalidatedTokenRepository;
 import com.nimbusds.jose.*;
 import com.nimbusds.jose.crypto.MACSigner;
 import com.nimbusds.jose.crypto.MACVerifier;
 import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -18,9 +20,11 @@ import java.util.StringJoiner;
 import java.util.UUID;
 
 @Component
+@RequiredArgsConstructor
 public class JwtUtils {
     @Value("${jwt.signKey}")
     private String SIGN_KEY;
+    private final InvalidatedTokenRepository invalidatedTokenRepository;
     public String generateToken(User user) {
         JWSHeader jwsHeader = new JWSHeader.Builder(JWSAlgorithm.HS256).type(JOSEObjectType.JWT).build();
         JWTClaimsSet jwtClaimsSet = new JWTClaimsSet.Builder()
@@ -54,20 +58,6 @@ public class JwtUtils {
         }
         return stringJoiner.toString();
     }
-    private SignedJWT signedJWT(String token) throws JOSEException, ParseException {
-        SignedJWT signedJWT = SignedJWT.parse(token);
-        JWSVerifier jwsVerifier = new MACVerifier(SIGN_KEY.getBytes());
-        Date expirationTime = signedJWT.getJWTClaimsSet().getExpirationTime();
-        Boolean verified = signedJWT.verify(jwsVerifier);
-        if (!verified || Date.from(Instant.now()).after(expirationTime)) {
-            throw new AppException(ErrorCode.TOKEN_INVALID);
-        }
-//        if (invalidatedTokenRepository.existsById(signedJWT.getJWTClaimsSet().getJWTID())) {
-//            throw new AppException(ErrorCode.UNAUTHENTICATED);
-//        }
-        return signedJWT;
-
-    }
     public SignedJWT verifyToken(String token) throws ParseException, JOSEException {
         SignedJWT signedJWT = SignedJWT.parse(token);
         JWSVerifier jwsVerifier = new MACVerifier(SIGN_KEY.getBytes());
@@ -76,9 +66,9 @@ public class JwtUtils {
         if (!verified || Date.from(Instant.now()).after(expirationTime)) {
             throw new AppException(ErrorCode.TOKEN_INVALID);
         }
-//        if (invalidatedTokenRepository.existsById(signedJWT.getJWTClaimsSet().getJWTID())) {
-//            throw new AppException(ErrorCode.UNAUTHENTICATED);
-//        }
+        if (invalidatedTokenRepository.existsById(signedJWT.getJWTClaimsSet().getJWTID())) {
+            throw new AppException(ErrorCode.UNAUTHENTICATED);
+        }
         return signedJWT;
     }
 

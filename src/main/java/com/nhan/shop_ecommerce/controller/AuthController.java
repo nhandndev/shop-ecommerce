@@ -1,6 +1,7 @@
 package com.nhan.shop_ecommerce.controller;
 
 import com.nhan.shop_ecommerce.dto.request.LoginRequest;
+import com.nhan.shop_ecommerce.dto.request.LogoutRequest;
 import com.nhan.shop_ecommerce.dto.request.RegisterRequest;
 import com.nhan.shop_ecommerce.dto.response.ApiResponse;
 import com.nhan.shop_ecommerce.dto.response.AuthenticationResponse;
@@ -35,6 +36,15 @@ public class AuthController {
                 .message("register completed")
                 .data(authService.login(loginRequest))
                 .build();
+    }
+    @PostMapping("/logout")
+    public ApiResponse<Void> logout(@RequestBody LogoutRequest logoutRequest){
+        authService.logout(logoutRequest);
+        return ApiResponse.<Void>builder()
+                .code(1000)
+                .message("logout completed")
+                .build();
+        
     }
 
 }
