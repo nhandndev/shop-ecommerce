@@ -21,6 +21,7 @@ public class ProductVariant {
     @Column(name = "stock",nullable = false)
     int stock;
 
+    @Version
     @Column(name = "version",nullable = false)
     int version = 0 ;
 
