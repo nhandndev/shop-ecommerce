@@ -7,6 +7,7 @@ import com.nhan.shop_ecommerce.enums.HomeSectionKey;
 import com.nhan.shop_ecommerce.repository.CategoryRepository;
 import com.nhan.shop_ecommerce.repository.HomeSectionRepository;
 import com.nhan.shop_ecommerce.strategy.HomeSectionHandler;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -18,6 +19,7 @@ import java.util.Map;
 public class QuickCategoriesHandler implements HomeSectionHandler {
     private final CategoryRepository categoryRepository;
     @Override
+    @Transactional
     public HomeSectionResponse<List<CategoryResponse>> fetchDataSection(String title, int sortOrder) {
         List<CategoryResponse> categories = categoryRepository.findAll().stream().map(category ->
                         CategoryResponse.builder()
