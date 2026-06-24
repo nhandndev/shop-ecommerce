@@ -2,12 +2,16 @@ package com.nhan.shop_ecommerce.domain;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
 import java.util.List;
 import java.util.Set;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "products")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Product {

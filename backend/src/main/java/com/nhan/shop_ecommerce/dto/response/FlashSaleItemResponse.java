@@ -1,10 +1,13 @@
 package com.nhan.shop_ecommerce.dto.response;
 
-import com.nhan.shop_ecommerce.domain.FlashSale;
-import com.nhan.shop_ecommerce.domain.ProductVariant;
-import jakarta.persistence.*;
+
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class FlashSaleItemResponse {
     // lay tu product

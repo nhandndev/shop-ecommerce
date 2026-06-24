@@ -9,4 +9,5 @@ import java.util.List;
 
 @Repository
 public interface FlashSaleRepository extends JpaRepository<FlashSale,Long> {
+    List<FlashSale> findByStatusTrueOrderByStartTimeAsc();
 }
