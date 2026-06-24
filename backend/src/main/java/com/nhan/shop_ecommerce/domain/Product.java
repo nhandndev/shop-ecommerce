@@ -14,7 +14,7 @@ import java.util.Set;
 @Setter
 @Table(name = "products")
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Product {
+public class Product extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
@@ -39,13 +39,12 @@ public class Product {
     @JoinColumn(name="seller_id")
     User seller;
 
-
-
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL , orphanRemoval = true)
     Set<ProductVariant> productVariants ;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL , orphanRemoval = true)
     List<Review> reviews;
+
 
 
 

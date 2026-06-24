@@ -10,7 +10,7 @@ import java.util.List;
 @Getter
 @Setter
 @Table(name = "product_variants")
-public class ProductVariant {
+public class ProductVariant extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -24,6 +24,9 @@ public class ProductVariant {
 
     @Column(name = "stock", nullable = false)
     int stock;
+
+    @Column(name = "active",nullable = false)
+    boolean active ;
 
     @Version
     @Column(name = "version", nullable = false)

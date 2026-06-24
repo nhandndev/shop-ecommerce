@@ -10,7 +10,7 @@ import java.util.List;
 @Entity
 @Table(name = "orders")
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Order {
+public class Order extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name ="id")

@@ -10,7 +10,7 @@ import java.util.logging.Level;
 @Entity
 @Table(name = "reviews")
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Review {
+public class Review  extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
