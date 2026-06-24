@@ -24,6 +24,9 @@ public class Product {
     @Column(name = "main_image")
     String mainImage;
 
+    @Column(name = "active")
+    boolean active;
+
     @ManyToOne
     @JoinColumn(name="category_id")
     Category category;
@@ -31,6 +34,8 @@ public class Product {
     @ManyToOne
     @JoinColumn(name="seller_id")
     User seller;
+
+
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL , orphanRemoval = true)
     Set<ProductVariant> productVariants ;

@@ -9,21 +9,21 @@ import java.util.List;
 public class ProductVariant {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name ="id")
+    @Column(name = "id")
     Long id;
 
-    @Column(name = "name",nullable = false)
+    @Column(name = "name", nullable = false)
     String name;
 
-    @Column(name = "price",nullable = false)
+    @Column(name = "price", nullable = false)
     Double price;
 
-    @Column(name = "stock",nullable = false)
+    @Column(name = "stock", nullable = false)
     int stock;
 
     @Version
-    @Column(name = "version",nullable = false)
-    int version = 0 ;
+    @Column(name = "version", nullable = false)
+    int version = 0;
 
     @ManyToOne
     @JoinColumn(name = "product_id")
@@ -31,4 +31,9 @@ public class ProductVariant {
 
     @OneToMany(mappedBy = "productVariant", cascade = CascadeType.ALL, orphanRemoval = true)
     List<OrderItem> orderItems;
+
+    @OneToMany(mappedBy = "productVariant",cascade = CascadeType.ALL,orphanRemoval = true)
+    List<FlashSaleItem> flashSaleItems;
+
 }
+
