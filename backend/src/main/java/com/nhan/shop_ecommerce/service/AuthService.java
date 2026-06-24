@@ -16,9 +16,7 @@ import com.nhan.shop_ecommerce.repository.InvalidatedTokenRepository;
 import com.nhan.shop_ecommerce.repository.RoleRepository;
 import com.nhan.shop_ecommerce.repository.UserRepository;
 import com.nimbusds.jose.*;
-import com.nimbusds.jose.crypto.MACSigner;
-import com.nimbusds.jose.crypto.MACVerifier;
-import com.nimbusds.jwt.JWTClaimsSet;
+
 import com.nimbusds.jwt.SignedJWT;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +24,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
-import java.time.Instant;
 import java.util.*;
 
 @Service
