@@ -10,14 +10,17 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class RecommendGrid implements HomeSectionHandler {
     final ProductRepository productRepository;
     @Override
+    @Transactional
     public HomeSectionResponse<List<ProductSummaryResponse>> fetchDataSection(String title, int sortOrder){
-        List<ProductSummaryResponse> products= productRepository.findByActiveTrueOrderByUpdateAtAsc().stream()
+        List<ProductSummaryResponse> products= productRepository.findByActiveTrueOrderByUpdatedAtAsc().stream()
                 .filter(product -> !product.getProductVariants().isEmpty())
                 .map(product -> {
                     Double maxPrice = product.getProductVariants().stream().map(ProductVariant::getPrice).max(Double::compare).orElse(null);

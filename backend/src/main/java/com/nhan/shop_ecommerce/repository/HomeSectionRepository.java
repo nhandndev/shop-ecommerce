@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface HomeSectionRepository extends JpaRepository<HomeSection,Long> {
-    List<HomeSection> findByActiveTrueOrderBysortOrderAsc();
+    List<HomeSection> findByActiveTrueOrderBySortOrderAsc();
 }

@@ -3,22 +3,22 @@ server:
   servlet:
     context-path: /api/v1
 
-
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5433/shop_ecommerce?useSSL=false&serverTimezone=UTC
+    url: jdbc:postgresql://localhost:5433/shop_ecommerce?currentSchema=public&useSSL=false&serverTimezone=UTC
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver
 
   jpa:
     hibernate:
-      ddl-auto: update
-    show-sql: true
-    properties:
-      hibernate:
-        format_sql: true # Định dạng câu lệnh SQL xuống dòng cho đẹp
-        # Sử dụng Dialect chính xác cho các phiên bản PostgreSQL hiện đại
-        dialect: org.hibernate.dialect.PostgreSQLDialect
+      ddl-auto: create-drop
+      show-sql: true
+      properties:
+        hibernate:
+          format_sql: true
+          ddl-auto: create-drop
+          dialect: org.hibernate.dialect.PostgreSQLDialect
+
 jwt:
-  signKey : iiIUNA+uyy8hzqFxFt2Nx9Wu8xqGq09+Eyq9nSzr4vQ=
+  signKey: iiIUNA+uyy8hzqFxFt2Nx9Wu8xqGq09+Eyq9nSzr4vQ=
